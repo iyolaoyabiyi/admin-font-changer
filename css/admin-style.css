@@ -1,0 +1,59 @@
+body .my-plugin-container {
+    font-family: Arial, sans-serif;
+}
+
+.my-plugin-container {
+    transition: font-family 0.3s ease;
+}
+
+.my-plugin-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.my-plugin-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.my-plugin-container p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.my-plugin-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.my-plugin-container a:hover {
+    text-decoration: underline;
+}
+
+.my-plugin-container .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.my-plugin-container .button:hover {
+    background-color: #0056b3;
+}
+
+/* Add more specific font styles here */
+
+@font-face {
+    font-family: 'Muli';
+    src: url('../fonts/muli.woff2') format('woff2'),
+         url('../fonts/muli.woff') format('woff');
+    /* Add other font formats here if necessary */
+    font-weight: normal;
+    font-style: normal;
+}
