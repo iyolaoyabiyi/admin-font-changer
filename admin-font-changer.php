@@ -3,10 +3,10 @@
 Plugin Name: Admin Font Changer
 Plugin URI: https://www.iyo.iyoandyeni.com/
 Description: A WordPress plugin to change the font used in the admin interface.
-* Version: 1.0
-* Author: Iyo
-* Author URI: https://www.iyo.iyoandyeni.com/
-* License: GPL2
+Version: 1.0
+Author: Iyo
+Author URI: https://www.iyo.iyoandyeni.com/
+License: GPL2
 */
 
 // Enqueue admin styles and scripts
@@ -31,21 +31,45 @@ function admin_font_changer_page() {
 
     $current_font = get_option( 'admin_font', 'Arial, sans-serif' );
 
-    echo '<div class="wrap">';
-    echo '<h1>Font Changer</h1>';
-    echo '<form method="post" action="">';
-    echo '<label for="admin_font">Select font:</label>';
-    echo '<select id="admin_font" name="admin_font">';
-    echo '<option value="Arial, sans-serif"' . ( $current_font === 'Arial, sans-serif' ? ' selected' : '' ) . '>Arial, sans-serif</option>';
-    echo '<option value="Georgia, serif"' . ( $current_font === 'Georgia, serif' ? ' selected' : '' ) . '>Georgia, serif</option>';
-    echo '<option value="Verdana, sans-serif"' . ( $current_font === 'Verdana, sans-serif' ? ' selected' : '' ) . '>Verdana, sans-serif</option>';
-    echo '<option value="Times New Roman, serif"' . ( $current_font === 'Times New Roman, serif' ? ' selected' : '' ) . '>Times New Roman, serif</option>';
-    echo '<option value="Courier New, monospace"' . ( $current_font === 'Courier New, monospace' ? ' selected' : '' ) . '>Courier New, monospace</option>';
-    echo '<option value="Muli, sans-serif"' . ( $current_font === 'Muli, sans-serif' ? ' selected' : '' ) . '>Muli, sans-serif</option>';
-    // Add more font options here
-    echo '</select>';
-    echo '<br><br>';
-    echo '<input type="submit" name="admin_font_submit" class="button button-primary" value="Save Font">';
-    echo '</form>';
-    echo '</div>';
+    ?>
+    <div class="wrap">
+        <h1>Font Changer</h1>
+        <form method="post" action="">
+            <label for="admin_font">Select font:</label>
+            <select id="admin_font" name="admin_font">
+                <option value="Arial, sans-serif"<?php selected( $current_font, 'Arial, sans-serif' ); ?>>Arial, sans-serif</option>
+                <option value="Georgia, serif"<?php selected( $current_font, 'Georgia, serif' ); ?>>Georgia, serif</option>
+                <option value="Verdana, sans-serif"<?php selected( $current_font, 'Verdana, sans-serif' ); ?>>Verdana, sans-serif</option>
+                <option value="Times New Roman, serif"<?php selected( $current_font, 'Times New Roman, serif' ); ?>>Times New Roman, serif</option>
+                <option value="Courier New, monospace"<?php selected( $current_font, 'Courier New, monospace' ); ?>>Courier New, monospace</option>
+                <option value="Muli, sans-serif"<?php selected( $current_font, 'Muli, sans-serif' ); ?>>Muli, sans-serif</option>
+                <!-- Add more font options here -->
+            </select>
+            <br><br>
+            <input type="submit" name="admin_font_submit" class="button button-primary" value="Save Font">
+            <?php wp_nonce_field( 'admin_font_changer_nonce', 'admin_font_changer_nonce' ); ?>
+        </form>
+    </div>
+    <?php
+}
+
+// Add inline styles for font change
+add_action( 'admin_print_styles', 'admin_font_changer_add_inline_styles' );
+function admin_font_changer_add_inline_styles() {
+    if ( isset( $_POST['admin_font_submit'] ) && check_admin_referer( 'admin_font_changer_nonce', 'admin_font_changer_nonce' ) ) {
+        $selected_font = sanitize_text_field( $_POST['admin_font'] );
+        update_option( 'admin_font', $selected_font );
+    }
+
+    $current_font = get_option( 'admin_font', 'Arial, sans-serif' );
+    $custom_css = "
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font-family: {$current_font}, Arial, sans-serif !important;
+        }
+    ";
+    wp_add_inline_style( 'wp-admin', $custom_css );
 }
