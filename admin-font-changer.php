@@ -19,7 +19,7 @@ function admin_font_changer_enqueue_styles_scripts() {
 // Add admin menu page
 add_action( 'admin_menu', 'admin_font_changer_menu' );
 function admin_font_changer_menu() {
-    add_options_page( 'Font Changer', 'Font Changer', 'manage_options', 'admin-font-changer', 'admin_font_changer_page' );
+    add_options_page( 'Admin Font Changer', 'Admin Font Changer', 'manage_options', 'admin-font-changer', 'admin_font_changer_page' );
 }
 
 // Render admin menu page
@@ -33,7 +33,7 @@ function admin_font_changer_page() {
 
     ?>
     <div class="wrap">
-        <h1>Font Changer</h1>
+        <h1>Admin Font Changer</h1>
         <form method="post" action="">
             <label for="admin_font">Select font:</label>
             <select id="admin_font" name="admin_font">
