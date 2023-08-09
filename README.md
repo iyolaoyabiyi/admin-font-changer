@@ -32,6 +32,7 @@ If you want to use a custom font, follow these steps:
     font-family: 'CustomFont';
     src: url('path-to-your-font/custom-font.ttf') format('truetype');
 }
+```
 Replace 'path-to-your-font/custom-font.ttf' with the actual path to your custom font file.
 
 Contributing
